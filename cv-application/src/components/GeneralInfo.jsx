@@ -7,11 +7,19 @@ export default function GeneralInfo({ value, setValue }) {
         email: '',
         phone: ''
     });
+    const [status, setStatus] = useState(false);
 
-    const handleClick = () => {
-        console.log(localInput);
+    const handleSubmitClick = () => {
+        if (localInput.name === '' && localInput.email === '' && localInput.phone === '') {
+            return;
+        }
+        setStatus(true);
         setValue(localInput);
     };
+
+    const handleEditClick = () => {
+        setStatus(false);
+    }
 
     return (
         <div className='section'>
@@ -22,6 +30,7 @@ export default function GeneralInfo({ value, setValue }) {
                     ...prev,
                     name: e.target.value
                 }))}
+                disabled={status}
             />
             <h2>Email</h2>
             <input
@@ -30,6 +39,7 @@ export default function GeneralInfo({ value, setValue }) {
                     ...prev,
                     email: e.target.value
                 }))}
+                disabled={status}
             />
             <h2>Phone</h2>
             <input
@@ -38,8 +48,10 @@ export default function GeneralInfo({ value, setValue }) {
                     ...prev,
                     phone: e.target.value
                 }))}
+                disabled={status}
             />
-            <button onClick={handleClick}>Submit</button>
+            <button onClick={handleSubmitClick} disabled={status}>Submit</button>
+            <button onClick={handleEditClick} disabled={!status}>Edit</button>
         </div>
     )
 }
