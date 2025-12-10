@@ -1,0 +1,10 @@
+.section {
+    text-align: start;
+    border-color: brown;
+    background-color: aqua;
+    padding: 30px;
+}
+
+.textbox {
+    height: 80px;
+}
