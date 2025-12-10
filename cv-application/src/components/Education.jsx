@@ -1,48 +1,47 @@
-import '../styles/Company.css'
+import '../styles/Education.css'
 import { useState } from 'react'
 
-export default function Company({ value, setValue }) {
+export default function Education({ value, setValue }) {
     const [localInput, setLocalInput] = useState({
-        company: '',
-        title: '',
-        responsibilities: '',
+        school: '',
+        major: '',
         fromdate: '',
         todate: ''
     });
 
+    const [status, setStatus] = useState(false);
     const handleSubmitClick = () => {
+        if (localInput.school === '' && localInput.major === '' && localInput.fromdate === '' && localInput.todate === '') {
+            return;
+        }
+        setStatus(true);
         localInput.id = crypto.randomUUID();
-        let newCompanyInfo = [...value, localInput]
-        console.log(value)
-        setValue(newCompanyInfo);
+        setValue(localInput);
     };
+
+    const handleEditClick = () => {
+        setStatus(false);
+    }
 
     return (
         <div className='section'>
-            <h2>Company:</h2>
+            <h2>School:</h2>
             <input
-                value={localInput.company}
+                value={localInput.school}
                 onChange={(e) => setLocalInput(prev => ({
                     ...prev,
-                    company: e.target.value
+                    school: e.target.value
                 }))}
+                disabled={status}
             />
-            <h2>Title</h2>
+            <h2>Major</h2>
             <input
-                value={localInput.title}
+                value={localInput.major}
                 onChange={(e) => setLocalInput(prev => ({
                     ...prev,
-                    title: e.target.value
+                    major: e.target.value
                 }))}
-            />
-            <h2>Responsibilties</h2>
-            <textarea
-                class='textbox'
-                value={localInput.responsibilities}
-                onChange={(e) => setLocalInput(prev => ({
-                    ...prev,
-                    responsibilities: e.target.value
-                }))}
+                disabled={status}
             />
             <h2>From Date:</h2>
             <input
@@ -52,6 +51,7 @@ export default function Company({ value, setValue }) {
                     ...prev,
                     fromdate: e.target.value
                 }))}
+                disabled={status}
             />
             <h2>To Date:</h2>
             <input
@@ -61,8 +61,10 @@ export default function Company({ value, setValue }) {
                     ...prev,
                     todate: e.target.value
                 }))}
+                disabled={status}
             />
-            <button onClick={handleSubmitClick}>Submit</button>
+            <button onClick={handleSubmitClick} disabled={status}>Submit</button>
+            <button onClick={handleEditClick} disabled={!status}>Edit</button>
         </div>
     )
 }

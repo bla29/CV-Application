@@ -6,6 +6,8 @@ import GeneralInfo from './components/generalInfo'
 import DisplayCV from './components/DisplayCV'
 import Company from './components/Company'
 import DisplayCompany from './components/DisplayCompany'
+import Education from './components/Education'
+import DisplayEducation from './components/DisplayEducation'
 
 function App() {
   const [generalInfo, setGeneralInfo] = useState({
@@ -14,6 +16,12 @@ function App() {
     phone: ''
   });
   const [companyInfo, setCompanyInfo] = useState([]);
+  const [schoolInfo, setSchoolInfo] = useState({
+    school: '',
+    major: '',
+    fromdate: '',
+    todate: ''
+  });
 
   return (
     <div className='format'>
@@ -21,6 +29,10 @@ function App() {
         <GeneralInfo
           value={generalInfo}
           setValue={setGeneralInfo}
+        />
+        <Education
+          value={schoolInfo}
+          setValue={setSchoolInfo}
         />
         <Company
           value={companyInfo}
@@ -30,6 +42,9 @@ function App() {
       <div>
         <DisplayCV
           value={generalInfo}
+        />
+        <DisplayEducation
+          value={schoolInfo}
         />
         <DisplayCompany
           value={companyInfo}
